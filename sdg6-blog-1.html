@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AquaVoice — SDG 6</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0D0D0D;
+      --white:   #FFFFFF;
+      --blue:    #2D7DD2;
+      --gray-50: #F4F6F8;
+      --gray-200:#E2E8F0;
+      --gray-400:#8A9BB0;
+      --gray-600:#4A5568;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── GLOBAL ─── */
+    a { text-decoration: none; color: inherit; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 0.95rem; font-weight: 700; letter-spacing: -0.3px;
+      color: var(--black);
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-center {
+      display: flex; gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-center a {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: var(--gray-600);
+      transition: color 0.15s;
+    }
+    .nav-center a:hover { color: var(--black); }
+    .nav-right {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .nav-right a {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.5px; color: var(--gray-600);
+      transition: color 0.15s;
+    }
+    .nav-right a:hover { color: var(--black); }
+    .nav-cta {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: var(--white) !important;
+      background: var(--black);
+      padding: 0.5rem 1.1rem;
+      transition: background 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--blue) !important; color: var(--white) !important; }
+
+    /* hamburger */
+    .hamburger {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 4px; flex-direction: column; gap: 5px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--black);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--white); z-index: 99;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 1.5rem 2rem;
+      flex-direction: column; gap: 1.2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.5px; color: var(--gray-600);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding-top: 60px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 60px);
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 4rem 5rem 0;
+      border-right: 1px solid var(--gray-200);
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 24px; height: 1px; background: var(--blue);
+    }
+    .hero-h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700; line-height: 1.08;
+      letter-spacing: -2px; color: var(--black);
+      margin-bottom: 1.8rem;
+    }
+    .hero-h1 .blue { color: var(--blue); }
+    .hero-p {
+      font-size: 0.95rem; font-weight: 400;
+      line-height: 1.75; color: var(--gray-600);
+      max-width: 420px; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+    .btn-solid {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: var(--white); background: var(--black);
+      padding: 0.75rem 1.5rem;
+      transition: background 0.15s;
+    }
+    .btn-solid:hover { background: var(--blue); }
+    .btn-text {
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--gray-600);
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.15s;
+    }
+    .btn-text:hover { color: var(--black); }
+    .btn-text::after { content: '→'; }
+
+    .hero-right {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 3rem 0 0 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-stat-big {
+      font-size: clamp(7rem, 14vw, 13rem);
+      font-weight: 700; line-height: 0.85;
+      letter-spacing: -6px; color: var(--gray-50);
+      user-select: none; position: absolute;
+      bottom: -1rem; right: -1rem;
+    }
+    .hero-stats {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-top: auto;
+      border-top: 1px solid var(--gray-200);
+    }
+    .hstat {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid var(--gray-200);
+    }
+    .hstat:nth-child(even) { border-right: none; }
+    .hstat:nth-child(n+3) { border-top: 1px solid var(--gray-200); }
+    .hstat-num {
+      font-size: 1.9rem; font-weight: 700;
+      letter-spacing: -1px; color: var(--black);
+      line-height: 1; margin-bottom: 0.4rem;
+    }
+    .hstat-num span { color: var(--blue); }
+    .hstat-label {
+      font-size: 0.72rem; font-weight: 400;
+      color: var(--gray-400); line-height: 1.5;
+    }
+
+    /* ─── SECTION BASICS ─── */
+    .sec { padding: 6rem 0; }
+    .sec-sm { padding: 4rem 0; }
+
+    .label {
+      font-size: 0.67rem; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--blue);
+      display: flex; align-items: center; gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+    .label::before {
+      content: ''; display: block;
+      width: 20px; height: 1px; background: var(--blue);
+    }
+    .sec-title {
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      font-weight: 700; letter-spacing: -1px;
+      line-height: 1.15; color: var(--black);
+      margin-bottom: 1rem;
+    }
+    .sec-sub {
+      font-size: 0.88rem; color: var(--gray-600);
+      line-height: 1.75; max-width: 480px;
+    }
+    hr.rule {
+      border: none; border-top: 1px solid var(--gray-200);
+    }
+
+    /* ─── FEATURED ─── */
+    .featured-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--gray-200);
+    }
+    .featured-img-col {
+      height: 520px; overflow: hidden;
+      position: relative;
+    }
+    .featured-img-col img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(15%);
+      transition: transform 0.6s ease, filter 0.4s;
+    }
+    .featured-wrap:hover .featured-img-col img {
+      transform: scale(1.03); filter: grayscale(0%);
+    }
+    .featured-body {
+      padding: 3.5rem;
+      display: flex; flex-direction: column; justify-content: center;
+      border-left: 1px solid var(--gray-200);
+    }
+    .feat-cat {
+      font-size: 0.67rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 1.5rem;
+    }
+    .feat-title {
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700; letter-spacing: -0.8px;
+      line-height: 1.2; color: var(--black);
+      margin-bottom: 1.2rem;
+      transition: color 0.15s;
+    }
+    .feat-title:hover { color: var(--blue); }
+    .feat-excerpt {
+      font-size: 0.88rem; color: var(--gray-600);
+      line-height: 1.8; margin-bottom: 2rem;
+    }
+    .feat-meta {
+      font-size: 0.72rem; color: var(--gray-400);
+      display: flex; gap: 1.5rem; margin-bottom: 2rem;
+    }
+    .read-link {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: var(--black);
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding-bottom: 2px;
+      border-bottom: 1.5px solid var(--black);
+      transition: color 0.15s, border-color 0.15s;
+      width: fit-content;
+    }
+    .read-link:hover { color: var(--blue); border-color: var(--blue); }
+    .read-link::after { content: '→'; }
+
+    /* ─── BLOG GRID ─── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--gray-200);
+    }
+    .blog-card {
+      border-right: 1px solid var(--gray-200);
+      display: flex; flex-direction: column;
+      transition: background 0.15s;
+    }
+    .blog-card:last-child { border-right: none; }
+    .blog-card:hover { background: var(--gray-50); }
+    .card-img-wrap {
+      height: 200px; overflow: hidden;
+    }
+    .card-img-wrap img {
+      filter: grayscale(20%);
+      transition: transform 0.5s ease, filter 0.3s;
+    }
+    .blog-card:hover .card-img-wrap img {
+      transform: scale(1.04); filter: grayscale(0%);
+    }
+    .card-body {
+      padding: 1.8rem 1.8rem 2rem;
+      display: flex; flex-direction: column; flex: 1;
+      border-top: 1px solid var(--gray-200);
+    }
+    .card-cat {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.8rem;
+    }
+    .card-title {
+      font-size: 1rem; font-weight: 600;
+      letter-spacing: -0.3px; line-height: 1.4;
+      color: var(--black); display: block;
+      margin-bottom: 0.7rem; flex: 1;
+      transition: color 0.15s;
+    }
+    .card-title:hover { color: var(--blue); }
+    .card-excerpt {
+      font-size: 0.8rem; color: var(--gray-600);
+      line-height: 1.7; margin-bottom: 1.4rem;
+    }
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 1rem; border-top: 1px solid var(--gray-200);
+      font-size: 0.7rem; color: var(--gray-400);
+    }
+    .author-row { display: flex; align-items: center; gap: 0.5rem; }
+    .author-av {
+      width: 24px; height: 24px; border-radius: 50%; overflow: hidden;
+    }
+    .author-av img { filter: grayscale(30%); }
+
+    /* ─── QUOTE ─── */
+    .quote-sec {
+      background: var(--black);
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+    .quote-line {
+      width: 40px; height: 1px; background: var(--blue);
+      margin: 0 auto 2.5rem;
+    }
+    .quote-text {
+      font-size: clamp(1.3rem, 3vw, 2.1rem);
+      font-weight: 300; letter-spacing: -0.5px;
+      line-height: 1.5; color: var(--white);
+      max-width: 760px; margin: 0 auto 2rem;
+    }
+    .quote-attr {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    /* ─── SIDEBAR LAYOUT ─── */
+    .sidebar-layout {
+      display: grid; grid-template-columns: 1fr 320px;
+      gap: 0;
+      border-top: 1px solid var(--gray-200);
+    }
+    .main-col {
+      padding: 5rem 4rem 5rem 0;
+      border-right: 1px solid var(--gray-200);
+    }
+    .list-articles { display: flex; flex-direction: column; }
+    .list-art {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: 1.8rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .list-art:first-child { padding-top: 0; }
+    .list-art:last-child { border-bottom: none; }
+    .list-img { height: 110px; overflow: hidden; }
+    .list-img img { filter: grayscale(15%); transition: filter 0.3s; }
+    .list-art:hover .list-img img { filter: grayscale(0%); }
+    .list-body-col { display: flex; flex-direction: column; justify-content: center; }
+    .list-cat {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.5rem;
+    }
+    .list-title {
+      font-size: 1rem; font-weight: 600;
+      letter-spacing: -0.3px; line-height: 1.35;
+      color: var(--black); display: block;
+      margin-bottom: 0.5rem; transition: color 0.15s;
+    }
+    .list-title:hover { color: var(--blue); }
+    .list-excerpt {
+      font-size: 0.78rem; color: var(--gray-600); line-height: 1.7;
+      margin-bottom: 0.6rem;
+    }
+    .list-meta { font-size: 0.68rem; color: var(--gray-400); }
+
+    /* sidebar */
+    .aside-col { padding: 5rem 0 5rem 3rem; }
+    .widget { margin-bottom: 3rem; }
+    .widget:last-child { margin-bottom: 0; }
+    .widget-title {
+      font-size: 0.67rem; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--black); margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .sdg-block {
+      background: var(--black); padding: 2rem;
+      text-align: center; margin-bottom: 1rem;
+    }
+    .sdg-n {
+      font-size: 3.5rem; font-weight: 700;
+      letter-spacing: -3px; color: var(--white); line-height: 1;
+    }
+    .sdg-n span { color: var(--blue); }
+    .sdg-sub {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gray-400); margin-top: 0.5rem;
+    }
+    .sdg-desc {
+      font-size: 0.78rem; color: var(--gray-600); line-height: 1.7;
+      margin-top: 1rem;
+    }
+    .trend-list { list-style: none; }
+    .trend-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .trend-item:last-child { border-bottom: none; }
+    .trend-n {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 1px; color: var(--blue);
+      min-width: 20px; padding-top: 2px;
+    }
+    .trend-t {
+      font-size: 0.8rem; font-weight: 500;
+      line-height: 1.4; color: var(--black);
+      transition: color 0.15s;
+    }
+    .trend-t:hover { color: var(--blue); }
+    .nl-note {
+      font-size: 0.78rem; color: var(--gray-600); line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .nl-form { display: flex; flex-direction: column; gap: 0.6rem; }
+    .nl-form input {
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--gray-200); background: var(--white);
+      font-size: 0.82rem; font-family: 'Inter', sans-serif;
+      color: var(--black); outline: none; transition: border-color 0.15s;
+    }
+    .nl-form input:focus { border-color: var(--black); }
+    .nl-form button {
+      padding: 0.65rem; background: var(--black); color: var(--white);
+      border: none; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      font-family: 'Inter', sans-serif; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .nl-form button:hover { background: var(--blue); }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag-pill {
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.5px; color: var(--gray-600);
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--gray-200);
+      transition: all 0.15s;
+    }
+    .tag-pill:hover {
+      background: var(--black); color: var(--white);
+      border-color: var(--black);
+    }
+
+    /* ─── TARGETS ─── */
+    .targets-sec { background: var(--gray-50); padding: 6rem 0; }
+    .targets-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--gray-200); margin-top: 3rem;
+    }
+    .target-card {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--gray-200);
+      transition: background 0.15s;
+    }
+    .target-card:last-child { border-right: none; }
+    .target-card:nth-child(n+4) { border-top: 1px solid var(--gray-200); }
+    .target-card:nth-child(3) { border-right: none; }
+    .target-card:hover { background: var(--white); }
+    .target-num {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 1rem;
+    }
+    .target-title {
+      font-size: 0.95rem; font-weight: 600;
+      letter-spacing: -0.3px; color: var(--black);
+      margin-bottom: 0.7rem; line-height: 1.35;
+    }
+    .target-desc {
+      font-size: 0.78rem; color: var(--gray-600); line-height: 1.75;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      padding: 5rem 0 2.5rem;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 2.5rem;
+    }
+    .f-logo {
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--white); display: block; margin-bottom: 1.2rem;
+    }
+    .f-logo span { color: var(--blue); }
+    .f-desc {
+      font-size: 0.78rem; color: rgba(255,255,255,0.3);
+      line-height: 1.8;
+    }
+    .f-col h5 {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.5rem;
+    }
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .f-col a {
+      font-size: 0.78rem; color: rgba(255,255,255,0.3);
+      transition: color 0.15s;
+    }
+    .f-col a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.7rem; color: rgba(255,255,255,0.2);
+    }
+    .f-sdg {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 5rem 0 3rem; border-right: none; border-bottom: 1px solid var(--gray-200); }
+      .hero-right { padding: 3rem 0; }
+      .hero-stat-big { font-size: 8rem; }
+      .featured-wrap { grid-template-columns: 1fr; }
+      .featured-img-col { height: 320px; }
+      .featured-body { border-left: none; border-top: 1px solid var(--gray-200); }
+      .blog-grid { grid-template-columns: 1fr 1fr; }
+      .blog-card:nth-child(2) { border-right: none; }
+      .blog-card:nth-child(3) { border-top: 1px solid var(--gray-200); border-right: 1px solid var(--gray-200); }
+      .blog-card:nth-child(3) { border-right: none; }
+      .sidebar-layout { grid-template-columns: 1fr; }
+      .main-col { padding: 4rem 0 2rem; border-right: none; border-bottom: 1px solid var(--gray-200); }
+      .aside-col { padding: 3rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .targets-grid { grid-template-columns: 1fr 1fr; }
+      .target-card:nth-child(2) { border-right: none; }
+      .target-card:nth-child(3) { border-right: 1px solid var(--gray-200); border-top: 1px solid var(--gray-200); }
+      .target-card:nth-child(n+3) { border-top: 1px solid var(--gray-200); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-center, .nav-right .nav-cta, .nav-right > a { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-card { border-right: none; border-bottom: 1px solid var(--gray-200); }
+      .blog-card:last-child { border-bottom: none; }
+      .targets-grid { grid-template-columns: 1fr; }
+      .target-card { border-right: none; }
+      .target-card:nth-child(3) { border-right: none; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+      .aside-col { grid-template-columns: 1fr; }
+      .list-art { grid-template-columns: 1fr; }
+      .list-img { height: 180px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .hstat:nth-child(odd) { border-right: none; }
+      .hstat { border-bottom: 1px solid var(--gray-200); }
+    }
+
+    /* ─── FADE-IN ─── */
+    @keyframes up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-left > * { animation: up 0.5s ease both; }
+    .hero-left > *:nth-child(1) { animation-delay: 0.05s; }
+    .hero-left > *:nth-child(2) { animation-delay: 0.15s; }
+    .hero-left > *:nth-child(3) { animation-delay: 0.25s; }
+    .hero-left > *:nth-child(4) { animation-delay: 0.35s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Ctrl+<span>Sea</span></div>
+    <ul class="nav-center">
+      <li><a href="#">Stories</a></li>
+      <li><a href="#">Data</a></li>
+      <li><a href="#">Advocacy</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#">Subscribe</a>
+      <a href="#" class="nav-cta">Take Action</a>
+    </div>
+    <button class="hamburger" aria-label="Menu"
+      onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="#">Stories</a>
+  <a href="#">Data</a>
+  <a href="#">Advocacy</a>
+  <a href="#">Community</a>
+  <a href="#">About</a>
+  <a href="#" style="color:var(--blue);font-weight:600;">Take Action →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">SDG 6 · Clean Water &amp; Sanitation</div>
+      <h1 class="hero-h1">Ctrl+<span class="blue">Sea</span></h1>
+      <p class="hero-p">Ctrl+Sea: From River to Coast is a community-driven advocacy blog documenting the fight for cleaner waterways and coastlines across Cebu.<br><br>
+
+Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquatic plastic pollution originates not from bodies of water but land instead (Bardenas et al., 2023). Cebu is on track to produce more solid waste than any other province in the Philippines, and that waste is already showing up inside the fish that fisherfolk pull from the sea every day as reported by Fabro, 2024.
+
+<br><br>Cleanups alone aren't enough. Every piece of waste collected is also a data point. Ctrl+Sea turns community action into insight that can push for real change, following the lead of data-driven cleanup programs across the Philippines that have already been proven by some organizations like the Partnership in Environmental Management for the Seas of East Asia (PEMSEA, 2025).</p>
+    </div>
+    <div class="hero-right">
+      <img src="https://cebudailynews.inquirer.net/files/2024/04/IMG_1721-scaled-e1712114096864-1536x1122.jpg" alt="Featured story"/>
+      <div class="featured-body">
+        <a href="https://cebudailynews.inquirer.net/634360/cebu-city-rivers-household-waste-leading-cause-of-pollution" class="feat-title">Cebu City rivers: Household waste leading cause of pollution</a>
+        <p class="feat-excerpt">According to the CCENRO, they identified that common household pollutants such as detergent sachets, untreated wastewater, and organic debris are the major threats to the health of the city’s waterways. Lahug River is the most visibly affected as discarded detergent sachets are a common sight…</p>
+        <div class="feat-meta">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<hr class="rule">
+
+<!-- BLOG GRID -->
+<section class="sec">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <div class="label">Latest Posts</div>
+        <h2 class="sec-title" style="margin-bottom:0;">Stories Shaping<br>the Conversation</h2>
+      </div>
+      <a href="#" class="read-link">View All Posts</a>
+    </div>
+    <div class="blog-grid">
+
+      <article class="blog-card">
+        <div class="card-img-wrap">
+          <img src="https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_455/MTc0MTc0MzMwMzI0Nzg5MTE2/what-are-the-10-most-polluted-rivers-in-the-world.webp" alt="Water access"/>
+        </div>
+        <div class="card-body">
+          <a href="https://www.philstar.com/the-freeman/cebu-news/2025/04/28/2438954/call-out-protect-citys-last-clean-rivers" class="card-title">Call Out to Protect City’s Last Clean Rivers</a>
+          <p class="card-excerpt">CCENRO conducted a series of tests in December 2024 aiming to identify threats, assess the river’s health, and outline recommendations moving forward. They have called for community participation and environmental protection after finding out that some city rivers still remain clean and unspoiled…</p>
+          <div class="card-footer">
+            <div class="author-row">
+              <span>Iris Hazel Mascardo</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="card-img-wrap">
+          <img src="https://cebudailynews.inquirer.net/files/2025/10/river-boom-edited-2048x1152.jpg" alt="Sanitation"/>
+        </div>
+        <div class="card-body">
+          <a href="https://cebudailynews.inquirer.net/665621/floating-barriers-installed-in-cebu-city-rivers-to-fight-plastic-waste" class="card-title">Floating Barriers Installed in Cebu City Rivers to Fight Plastic Waste</a>
+          <p class="card-excerpt">Mayor Nestor Archival said that plastics have long been a major pollutant in the city’s rivers and coastal areas. On October 24, 2025, floating river blooms were installed in Barangays Bacayan, Bulacao, Inayawan, Labangon, and Pahina Central to contain floating debris making it easier to remove…</p>
+          <div class="card-footer">
+            <div class="author-row">
+              <span> Airam Limatog </span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="card-img-wrap">
+          <img src="https://cf-images.assettype.com/sunstar%2F2026-06-05%2Feqqjsikw%2F3.jpg?rect=0%2C200%2C3840%2C2160&w=1200&auto=format%2Ccompress&fit=max" alt="Crisis"/>
+        </div>
+        <div class="card-body">
+          <a href="https://www.sunstar.com.ph/cebu/pasil-fish-port-trash-highlights-ongoing-marine-pollution-crisis" class="card-title">Pasil Fish Port Trash Highlights Ongoing Marine Pollution Crisis</a>
+          <p class="card-excerpt">The issue drew public attention when Mayor Nestor Acrhival shared a video of a man dumping a sack of garbage into the seawater near the Pasil Fish Port. The recurring accumulation of water highlights the ongoing struggles to protect, and preserve marine ecosystems…</p>
+          <div class="card-footer">
+            <div class="author-row">
+              <span>Juan Carlo de Vela</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="card-img-wrap">
+          <img src="https://earthjournalism.net/sites/default/files/inline-images/olango-plastic-trash2-2048x1365-2.png" alt="Policy"/>
+        </div>
+        <div class="card-body">
+          <a href="https://earthjournalism.net/stories/polluted-paradise-how-plastic-trash-and-wastewater-imperils-lives-and-biodiversity" class="card-title">Polluted Paradise: How Plastic Trash and Wastewater Imperils Lives and Biodiversity in the Philippines’ Top Tourism Draw</a>
+          <p class="card-excerpt">From 2013 to 2022, Cebu province in Central Visayas was the most frequently visited area in the Philippines. In Olango Island Wildlife Sanctuary, habitat of migratory birds and also a nationally protected area where human settlement and waste dumping are forbidden, scattered sachets, water bottles and plastic bags were found on branches of mangroves…</p>
+          <div class="card-footer">
+            <div class="author-row">
+              <span>Keith Anthony S. Fabro</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="card-img-wrap">
+          <img src="https://d1rl40o93nnuyl.cloudfront.net/posts/1621/2264b21777263008-1.jpeg" alt="Gender"/>
+        </div>
+        <div class="card-body">
+          <a href="https://proudbisayabai.ph/story/2026/04/27/dozens-of-birds-skim-water-surface-in-opon-channel-as-plastic-waste-persists-under-cclex-in-cebu-city.html" class="card-title">Dozens of Birds Skim Water Surface in Opon Channel as Plastic Waste Persists Under CCLEX in Cebu City</a>
+          <p class="card-excerpt">Jacq Hernandez, a PBB photojournalist, captured a flock of birds repeatedly dipping toward the water in search of food despite the trash scattered along the water beneath the Cebu-Cordova Link Expressway (CCLEX). It highlights the persistent plastic pollution in coastal waters which can harm marine ecosystems…</p>
+          <div class="card-footer">
+            <div class="author-row">
+              <span>PBB Admin</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="card-img-wrap">
+          <img src="https://www.mayniladwater.com.ph/wp-content/uploads/2020/07/Facilities-Water-Treatment-plant-1.jpg" alt="Innovation"/>
+        </div>
+        <div class="card-body">
+          <a href="https://www.philstar.com/the-freeman/cebu-news/2025/05/21/2444727/water-treatment-facility-pasil-pushed" class="card-title">Water Treatment Facility for Pasil Pushed</a>
+          <p class="card-excerpt">In and near Pasil Fish Market, it failed the highest standard of water quality test conducted by CCENRO. It was found that despite passing four parameters these still weren't strong enough indicators that the water is safe especially in fecal coliform. Out of the four different areas tested near Pasil Fish Market it averaged a total level of 27,000,000 MPN/100 ml, Llanos stressed that the passing score was only 400 MPN…</p>
+          <div class="card-footer">
+            <div class="author-row">
+              <span>Iris Hazel Mascardo</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- TARGETS -->
+<section class="targets-sec">
+  <div class="container">
+    <div class="label">SDG 6 Targets</div>
+    <h2 class="sec-title">What We're<br>Fighting For</h2>
+    <div class="targets-grid">
+      <div class="target-card">
+        <div class="target-num">6.1</div>
+        <div class="target-title">Safe Drinking Water</div>
+        <p class="target-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+      </div>
+      <div class="target-card">
+        <div class="target-num">6.2</div>
+        <div class="target-title">Sanitation &amp; Hygiene</div>
+        <p class="target-desc">Consectetur adipiscing elit sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet quis nostrud exercitation.</p>
+      </div>
+      <div class="target-card">
+        <div class="target-num">6.3</div>
+        <div class="target-title">Water Quality</div>
+        <p class="target-desc">Ut enim ad minim veniam quis nostrud exercitation ullamco. Sed do eiusmod tempor incididunt ut labore et.</p>
+      </div>
+      <div class="target-card">
+        <div class="target-num">6.4</div>
+        <div class="target-title">Water Efficiency</div>
+        <p class="target-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse. Lorem ipsum dolor sit amet consectetur.</p>
+      </div>
+      <div class="target-card">
+        <div class="target-num">6.5</div>
+        <div class="target-title">Integrated Management</div>
+        <p class="target-desc">Excepteur sint occaecat cupidatat non proident sunt in culpa. Lorem ipsum dolor sit amet consectetur elit.</p>
+      </div>
+      <div class="target-card">
+        <div class="target-num">6.b</div>
+        <div class="target-title">Community Participation</div>
+        <p class="target-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore magna.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <span class="f-logo">Aqua<span>Voice</span></span>
+        <p class="f-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+      </div>
+      <div class="f-col">
+        <h5>Stories</h5>
+        <ul>
+          <li><a href="#">Water Access</a></li>
+          <li><a href="#">Sanitation</a></li>
+          <li><a href="#">Climate Impact</a></li>
+          <li><a href="#">Policy &amp; Law</a></li>
+          <li><a href="#">Innovations</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h5>Advocacy</h5>
+        <ul>
+          <li><a href="#">Take Action</a></li>
+          <li><a href="#">Petitions</a></li>
+          <li><a href="#">Partner NGOs</a></li>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#">Volunteer</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#">Data Hub</a></li>
+          <li><a href="#">Reports</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Press Kit</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AquaVoice</span>
+      <span class="f-sdg">UN SDG 6 · Clean Water &amp; Sanitation</span>
+      <span>Privacy · Terms · Contact</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.mobile-menu a').forEach(a =>
+    a.addEventListener('click', () =>
+      document.querySelector('.mobile-menu').classList.remove('open')
+    )
+  );
+</script>
+</body>
+</html>
