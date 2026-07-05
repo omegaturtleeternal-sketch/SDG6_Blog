@@ -40,7 +40,7 @@
     /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(255,255,255,0.96);
+      background: rgba(211, 229, 255, 0.99);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--gray-200);
     }
@@ -482,7 +482,7 @@
     }
 
     /* ─── TARGETS ─── */
-    .targets-sec { background: var(--gray-50); padding: 6rem 0; }
+    .targets-sec { background: rgba(231, 249, 255, 0.99); padding: 6rem 0; }
     .targets-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       border: 1px solid var(--gray-200); margin-top: 3rem;
@@ -495,7 +495,7 @@
     .target-card:last-child { border-right: none; }
     .target-card:nth-child(n+4) { border-top: 1px solid var(--gray-200); }
     .target-card:nth-child(3) { border-right: none; }
-    .target-card:hover { background: var(--white); }
+    .target-card:hover { background: rgba(241, 255, 255, 0.99); }
     .target-num {
       font-size: 0.65rem; font-weight: 700;
       letter-spacing: 2px; text-transform: uppercase;
@@ -623,15 +623,12 @@
   <div class="nav-inner">
     <div class="nav-logo">Ctrl+<span>Sea</span></div>
     <ul class="nav-center">
-      <li><a href="#">Stories</a></li>
+      <li><a href="#">Volunteer Stories</a></li>
       <li><a href="#">Data</a></li>
-      <li><a href="#">Advocacy</a></li>
-      <li><a href="#">Community</a></li>
       <li><a href="#">About</a></li>
     </ul>
     <div class="nav-right">
-      <a href="#">Subscribe</a>
-      <a href="#" class="nav-cta">Take Action</a>
+      <a href="#" class="nav-cta">Subscribe</a>
     </div>
     <button class="hamburger" aria-label="Menu"
       onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
@@ -640,10 +637,8 @@
   </div>
 </nav>
 <div class="mobile-menu">
-  <a href="#">Stories</a>
+  <a href="#">Volunteer Stories</a>
   <a href="#">Data</a>
-  <a href="#">Advocacy</a>
-  <a href="#">Community</a>
   <a href="#">About</a>
   <a href="#" style="color:var(--blue);font-weight:600;">Take Action →</a>
 </div>
@@ -661,7 +656,9 @@ Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquati
 <br><br>Cleanups alone aren't enough. Every piece of waste collected is also a data point. Ctrl+Sea turns community action into insight that can push for real change, following the lead of data-driven cleanup programs across the Philippines that have already been proven by some organizations like the Partnership in Environmental Management for the Seas of East Asia (PEMSEA, 2025).</p>
     </div>
     <div class="hero-right">
+      <a href="https://cebudailynews.inquirer.net/634360/cebu-city-rivers-household-waste-leading-cause-of-pollution">
       <img src="https://cebudailynews.inquirer.net/files/2024/04/IMG_1721-scaled-e1712114096864-1536x1122.jpg" alt="Featured story"/>
+      </a>
       <div class="featured-body">
         <a href="https://cebudailynews.inquirer.net/634360/cebu-city-rivers-household-waste-leading-cause-of-pollution" class="feat-title">Cebu City rivers: Household waste leading cause of pollution</a>
         <p class="feat-excerpt">According to the CCENRO, they identified that common household pollutants such as detergent sachets, untreated wastewater, and organic debris are the major threats to the health of the city’s waterways. Lahug River is the most visibly affected as discarded detergent sachets are a common sight…</p>
@@ -681,16 +678,18 @@ Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquati
     <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;">
       <div>
         <div class="label">Latest Posts</div>
-        <h2 class="sec-title" style="margin-bottom:0;">Stories Shaping<br>the Conversation</h2>
+        <h2 class="sec-title" style="margin-bottom:0;">Environmental <br>Stories</h2>
       </div>
-      <a href="#" class="read-link">View All Posts</a>
+      <a href="#" class="read-link">View Volunteer Stories</a>
     </div>
     <div class="blog-grid">
 
       <article class="blog-card">
+        <a href="https://www.philstar.com/the-freeman/cebu-news/2025/04/28/2438954/call-out-protect-citys-last-clean-rivers">
         <div class="card-img-wrap">
           <img src="https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_455/MTc0MTc0MzMwMzI0Nzg5MTE2/what-are-the-10-most-polluted-rivers-in-the-world.webp" alt="Water access"/>
         </div>
+        </a>
         <div class="card-body">
           <a href="https://www.philstar.com/the-freeman/cebu-news/2025/04/28/2438954/call-out-protect-citys-last-clean-rivers" class="card-title">Call Out to Protect City’s Last Clean Rivers</a>
           <p class="card-excerpt">CCENRO conducted a series of tests in December 2024 aiming to identify threats, assess the river’s health, and outline recommendations moving forward. They have called for community participation and environmental protection after finding out that some city rivers still remain clean and unspoiled…</p>
@@ -703,9 +702,11 @@ Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquati
       </article>
 
       <article class="blog-card">
+        <a href="https://cebudailynews.inquirer.net/665621/floating-barriers-installed-in-cebu-city-rivers-to-fight-plastic-waste">
         <div class="card-img-wrap">
           <img src="https://cebudailynews.inquirer.net/files/2025/10/river-boom-edited-2048x1152.jpg" alt="Sanitation"/>
         </div>
+        </a>
         <div class="card-body">
           <a href="https://cebudailynews.inquirer.net/665621/floating-barriers-installed-in-cebu-city-rivers-to-fight-plastic-waste" class="card-title">Floating Barriers Installed in Cebu City Rivers to Fight Plastic Waste</a>
           <p class="card-excerpt">Mayor Nestor Archival said that plastics have long been a major pollutant in the city’s rivers and coastal areas. On October 24, 2025, floating river blooms were installed in Barangays Bacayan, Bulacao, Inayawan, Labangon, and Pahina Central to contain floating debris making it easier to remove…</p>
@@ -718,9 +719,11 @@ Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquati
       </article>
 
       <article class="blog-card">
+        <a href="https://www.sunstar.com.ph/cebu/pasil-fish-port-trash-highlights-ongoing-marine-pollution-crisis">
         <div class="card-img-wrap">
           <img src="https://cf-images.assettype.com/sunstar%2F2026-06-05%2Feqqjsikw%2F3.jpg?rect=0%2C200%2C3840%2C2160&w=1200&auto=format%2Ccompress&fit=max" alt="Crisis"/>
         </div>
+        </a>
         <div class="card-body">
           <a href="https://www.sunstar.com.ph/cebu/pasil-fish-port-trash-highlights-ongoing-marine-pollution-crisis" class="card-title">Pasil Fish Port Trash Highlights Ongoing Marine Pollution Crisis</a>
           <p class="card-excerpt">The issue drew public attention when Mayor Nestor Acrhival shared a video of a man dumping a sack of garbage into the seawater near the Pasil Fish Port. The recurring accumulation of water highlights the ongoing struggles to protect, and preserve marine ecosystems…</p>
@@ -733,9 +736,11 @@ Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquati
       </article>
 
       <article class="blog-card">
+        <a href="https://earthjournalism.net/stories/polluted-paradise-how-plastic-trash-and-wastewater-imperils-lives-and-biodiversity">
         <div class="card-img-wrap">
           <img src="https://earthjournalism.net/sites/default/files/inline-images/olango-plastic-trash2-2048x1365-2.png" alt="Policy"/>
         </div>
+        </a>
         <div class="card-body">
           <a href="https://earthjournalism.net/stories/polluted-paradise-how-plastic-trash-and-wastewater-imperils-lives-and-biodiversity" class="card-title">Polluted Paradise: How Plastic Trash and Wastewater Imperils Lives and Biodiversity in the Philippines’ Top Tourism Draw</a>
           <p class="card-excerpt">From 2013 to 2022, Cebu province in Central Visayas was the most frequently visited area in the Philippines. In Olango Island Wildlife Sanctuary, habitat of migratory birds and also a nationally protected area where human settlement and waste dumping are forbidden, scattered sachets, water bottles and plastic bags were found on branches of mangroves…</p>
@@ -748,9 +753,11 @@ Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquati
       </article>
 
       <article class="blog-card">
+        <a href="https://proudbisayabai.ph/story/2026/04/27/dozens-of-birds-skim-water-surface-in-opon-channel-as-plastic-waste-persists-under-cclex-in-cebu-city.html">
         <div class="card-img-wrap">
           <img src="https://d1rl40o93nnuyl.cloudfront.net/posts/1621/2264b21777263008-1.jpeg" alt="Gender"/>
         </div>
+        </a>
         <div class="card-body">
           <a href="https://proudbisayabai.ph/story/2026/04/27/dozens-of-birds-skim-water-surface-in-opon-channel-as-plastic-waste-persists-under-cclex-in-cebu-city.html" class="card-title">Dozens of Birds Skim Water Surface in Opon Channel as Plastic Waste Persists Under CCLEX in Cebu City</a>
           <p class="card-excerpt">Jacq Hernandez, a PBB photojournalist, captured a flock of birds repeatedly dipping toward the water in search of food despite the trash scattered along the water beneath the Cebu-Cordova Link Expressway (CCLEX). It highlights the persistent plastic pollution in coastal waters which can harm marine ecosystems…</p>
@@ -763,9 +770,11 @@ Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquati
       </article>
 
       <article class="blog-card">
+        <a href="https://www.philstar.com/the-freeman/cebu-news/2025/05/21/2444727/water-treatment-facility-pasil-pushed">
         <div class="card-img-wrap">
           <img src="https://www.mayniladwater.com.ph/wp-content/uploads/2020/07/Facilities-Water-Treatment-plant-1.jpg" alt="Innovation"/>
         </div>
+        </a>
         <div class="card-body">
           <a href="https://www.philstar.com/the-freeman/cebu-news/2025/05/21/2444727/water-treatment-facility-pasil-pushed" class="card-title">Water Treatment Facility for Pasil Pushed</a>
           <p class="card-excerpt">In and near Pasil Fish Market, it failed the highest standard of water quality test conducted by CCENRO. It was found that despite passing four parameters these still weren't strong enough indicators that the water is safe especially in fecal coliform. Out of the four different areas tested near Pasil Fish Market it averaged a total level of 27,000,000 MPN/100 ml, Llanos stressed that the passing score was only 400 MPN…</p>
@@ -826,41 +835,32 @@ Cebu's rivers are dying and the coast is on the receiving end. 80% of all aquati
   <div class="container">
     <div class="footer-top">
       <div>
-        <span class="f-logo">Aqua<span>Voice</span></span>
-        <p class="f-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+        <span class="f-logo">Ctrl+<span>Sea</span></span>
+        <p class="f-desc">Ctrl+Sea: From River to Coast is a community-driven advocacy blog documenting the fight for cleaner waterways and coastlines across Cebu.</p>
       </div>
       <div class="f-col">
         <h5>Stories</h5>
         <ul>
-          <li><a href="#">Water Access</a></li>
-          <li><a href="#">Sanitation</a></li>
-          <li><a href="#">Climate Impact</a></li>
-          <li><a href="#">Policy &amp; Law</a></li>
-          <li><a href="#">Innovations</a></li>
+          <li><a href="#">Environmental Stories</a></li>
+          <li><a href="#">Volunteer Stories</a></li>
         </ul>
       </div>
       <div class="f-col">
         <h5>Advocacy</h5>
         <ul>
-          <li><a href="#">Take Action</a></li>
-          <li><a href="#">Petitions</a></li>
-          <li><a href="#">Partner NGOs</a></li>
-          <li><a href="#">Donate</a></li>
-          <li><a href="#">Volunteer</a></li>
+          <li><a href="#">Subscribe</a></li>
+          <li><a href="#">About Us</a></li>
         </ul>
       </div>
       <div class="f-col">
         <h5>Resources</h5>
         <ul>
           <li><a href="#">Data Hub</a></li>
-          <li><a href="#">Reports</a></li>
-          <li><a href="#">Newsletter</a></li>
-          <li><a href="#">Press Kit</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 AquaVoice</span>
+      <span>© 2026 Ctrl+Sea</span>
       <span class="f-sdg">UN SDG 6 · Clean Water &amp; Sanitation</span>
       <span>Privacy · Terms · Contact</span>
     </div>
