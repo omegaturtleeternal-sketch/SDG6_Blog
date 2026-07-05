@@ -309,7 +309,6 @@
       <p class="status-msg" id="status-msg"></p>
     </form>
 
-    <p class="sub-note">We'll only use this to send Ctrl+Sea updates. Unsubscribe anytime.</p>
     <div class="sub-line"></div>
   </div>
 </main>
@@ -397,23 +396,52 @@
       //      body: JSON.stringify({ email })
       //    });
 
-      const res = await fetch('/api/subscribe', {
+      const SUPABASE_URL = 'https://cezvkbdwzlkzqgfypkrg.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_FAt07ZeZXER-w-_9HUsU9g_ClMcI8-7';
+
+  document.querySelector('.nl-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const emailInput = e.target.querySelector('input[type="email"]');
+    const email = emailInput.value.trim();
+    const button = e.target.querySelector('button');
+
+    if (!email) return;
+
+    button.disabled = true;
+    button.textContent = 'Subscribing...';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/subscribers`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        },
         body: JSON.stringify({ email })
       });
 
-      if (!res.ok) throw new Error('Request failed');
-
-      setStatus("You're in! Check your inbox for a confirmation.", 'success');
-      form.reset();
+      if (res.ok) {
+        button.textContent = 'Subscribed ✓';
+        emailInput.value = '';
+      } else if (res.status === 409) {
+        // unique constraint violation
+        button.textContent = 'Already subscribed';
+      } else {
+        button.textContent = 'Something went wrong';
+      }
     } catch (err) {
-      setStatus("Something went wrong — this page isn't yet connected to a live database endpoint. See the TODO in the code.", 'error');
+      button.textContent = 'Network error';
     } finally {
-      btn.disabled = false;
-      btn.textContent = 'Subscribe';
+      setTimeout(() => {
+        button.disabled = false;
+        button.textContent = 'Subscribe';
+      }, 2500);
     }
   });
+  
+  }});
 </script>
 
 </body>
