@@ -677,19 +677,25 @@
       margin-top: 0.4rem;
     }
 
-    /* ─── TEAM GRID (About page) ─── */
+    /* ─── TEAM GRID (About page) — tuned for exactly 5 members ─── */
     .team-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(6, 1fr);
       border: 1px solid var(--gray-200); margin-top: 3rem;
     }
     .team-card {
+      grid-column: span 2;
       padding: 2.5rem 2rem;
       text-align: center;
       border-right: 1px solid var(--gray-200);
       transition: background 0.15s;
     }
-    .team-card:nth-child(3n) { border-right: none; }
-    .team-card:nth-child(n+4) { border-top: 1px solid var(--gray-200); }
+    /* row 1: cards 1-3 */
+    .team-card:nth-child(1) { grid-column: 1 / 3; border-bottom: 1px solid var(--gray-200); }
+    .team-card:nth-child(2) { grid-column: 3 / 5; border-bottom: 1px solid var(--gray-200); }
+    .team-card:nth-child(3) { grid-column: 5 / 7; border-right: none; border-bottom: 1px solid var(--gray-200); }
+    /* row 2: cards 4-5, centered under row 1 */
+    .team-card:nth-child(4) { grid-column: 2 / 4; }
+    .team-card:nth-child(5) { grid-column: 4 / 6; border-right: none; }
     .team-card:hover { background: var(--gray-50); }
     .team-name {
       font-size: 0.95rem; font-weight: 600;
@@ -707,12 +713,22 @@
 
     @media (max-width: 1024px) {
       .team-grid { grid-template-columns: 1fr 1fr; }
+      .team-card {
+        grid-column: auto;
+        border-right: 1px solid var(--gray-200);
+        border-bottom: 1px solid var(--gray-200);
+      }
       .team-card:nth-child(2n) { border-right: none; }
-      .team-card:nth-child(n+3) { border-top: 1px solid var(--gray-200); }
+      .team-card:nth-child(5) { grid-column: 1 / -1; border-right: none; }
+      .team-card:last-child { border-bottom: none; }
     }
     @media (max-width: 768px) {
       .team-grid { grid-template-columns: 1fr; }
-      .team-card { border-right: none; border-bottom: 1px solid var(--gray-200); }
+      .team-card {
+        grid-column: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--gray-200);
+      }
       .team-card:last-child { border-bottom: none; }
       .citation-item { grid-template-columns: 1fr; gap: 0.4rem; }
     }
@@ -795,21 +811,21 @@ Our promise: As students who are just beginning our journey in Software Engineer
       </div>
 
       <div class="team-card">
-        <div class="team-name">Team Member Name</div>
-        <div class="team-role">Role Placeholder</div>
-        <p class="team-bio">One or two placeholder lines about this person's background and what they lead on the team.</p>
+        <div class="team-name">Rhys Martine Cui</div>
+        <div class="team-role">Lead Content Writer</div>
+        <p class="team-bio">Contributes to environtmental awareness through content writing, research, and fact-checking.</p>
       </div>
 
       <div class="team-card">
-        <div class="team-name">Team Member Name</div>
-        <div class="team-role">Role Placeholder</div>
-        <p class="team-bio">One or two placeholder lines about this person's background and what they lead on the team.</p>
+        <div class="team-name">Daniel Jay P. Dioquino</div>
+        <div class="team-role">Primary Researcher</div>
+        <p class="team-bio">I believe that caring for the environment today creates a better future for everyone. Found reliable sources and took notes to support the group's research.</p>
       </div>
 
       <div class="team-card">
-        <div class="team-name">Team Member Name</div>
-        <div class="team-role">Role Placeholder</div>
-        <p class="team-bio">One or two placeholder lines about this person's background and what they lead on the team.</p>
+        <div class="team-name">Nino Joaquin C. Aguilar</div>
+        <div class="team-role">Visionary</div>
+        <p class="team-bio">I vow to improve the sanitation and aquatic environment with the help of technology. Conceptualized the overall direction of the project.</p>
       </div>
 
     </div>
